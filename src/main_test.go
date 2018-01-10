@@ -16,8 +16,10 @@ func TestHandler(t *testing.T) {
         t.Fatal(err)
     }
 
+    h := makeHandler()
+
     postrr := httptest.NewRecorder()
-    handler := http.HandlerFunc(handler)
+    handler := http.HandlerFunc(h)
 
     handler.ServeHTTP(postrr, postreq)
 

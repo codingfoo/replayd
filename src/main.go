@@ -13,8 +13,9 @@ func makeHandler() func(w http.ResponseWriter, r *http.Request) {
   return func(w http.ResponseWriter, r *http.Request) {
     switch r.Method {
       case "GET":
-        b.WriteTo(w);
+        bytes.NewBuffer(b.Bytes()).WriteTo(w);
       case "PUT":
+        fallthrough
       case "POST":
         mutex.Lock()
         defer mutex.Unlock()

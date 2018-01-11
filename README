@@ -1,15 +1,7 @@
-Write a program in Go called replayd; this program is meant to be used as a
-configurable HTTP test back-end. The replayd application accepts user data over HTTP and
-stores it to an in-memory buffer. It also accepts requests for that data over HTTP and responds
-with what has been buffered.
-1. Use TOML, JSON or INI for the configuration file format
-2. Should expose a single HTTP endpoint: /
-1. PUT or POST should store the response payload in the buffer
-2. GET should return the buffered data
-3. Your program should have unit tests (use “go test -cover” to ensure reasonable coverage)
-4. Your program should be free of race conditions; one user may be setting a new payload
-while others are requesting it. For example, you should be able to build your with the race
-flag and run a benchmark tool like wrk against it, while manually using curl to set a new
-play-load)
+. write replayd daemon
+  . add commandline opt for config file
+  . add config file parsing
+. write salt config
 
-. config file should have port number?
+. write shell scripts
+. write README

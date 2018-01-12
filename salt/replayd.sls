@@ -4,9 +4,20 @@ replayd:
     - shell: /bin/nologin
     - home: /usr/local/replayd
 
+go-install:
+  pkg.installed:
+    - pkgs:
+      - golang
+
+replayd-repo:
+  git.latest:
+    - name: git@github.com:codingfoo/replayd.git
+    - branch: stable
+    - target: /tmp/replayd
+
 /usr/local/bin/replayd:
   file.managed:
-    - source: salt://replayd
+    - source: /tmp/replayd/replayd
     - mode: 755
 
 /etc/replayd:

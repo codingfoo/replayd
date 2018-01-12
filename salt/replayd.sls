@@ -1,8 +1,7 @@
 replayd:
   user.present:
-    - fullname:
-    - shell: /bin/nologin
-    - home: /usr/local/replayd
+    - shell: /usr/sbin/nologin
+    - home: /dev/null
 
 /etc/replayd:
   file.directory:

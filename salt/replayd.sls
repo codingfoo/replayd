@@ -40,6 +40,9 @@ build-replayd:
   file.managed:
     - source: /tmp/replayd-1.0/main
     - mode: 755
+    - require:
+      - cmd: build-replayd
+      - file: /etc/replayd/config.json
 
 /etc/replayd/config.json:
   file.managed:

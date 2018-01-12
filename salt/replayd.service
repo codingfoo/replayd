@@ -1,0 +1,13 @@
+[Unit]
+Description=HTTP replayd script
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/replayd -config-file=/etc/replayd/config.json
+Restart=always
+User=replayd
+Group=replayd
+
+[Install]
+WantedBy=multi-user.target

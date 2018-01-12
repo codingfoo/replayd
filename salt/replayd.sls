@@ -4,6 +4,10 @@ replayd:
     - shell: /bin/nologin
     - home: /usr/local/replayd
 
+/etc/replayd:
+  file.directory:
+    - dir_mode: 755
+
 go-install:
   pkg.installed:
     - pkgs:
@@ -15,41 +19,46 @@ replayd-repo:
     - branch: stable
     - target: /tmp/replayd
 
+build-replayd:
+  cmd:
+    - cwd: /tmp/replayd
+    - names:
+      - go build main.go
+    - run
+    - require:
+      - git: replayd-repo
+
 /usr/local/bin/replayd:
   file.managed:
     - source: /tmp/replayd/replayd
     - mode: 755
 
-/etc/replayd:
-  file.directory:
-    - dir_mode: 755
-
 /etc/replayd/config.json:
   file.managed:
     - mode: 644
     - contents: |
-      {
-      "host": "127.0.0.1",
-      "port": "8080"
-      }
+        {
+        "host": "127.0.0.1",
+        "port": "8080"
+        }
 
 /etc/systemd/system/replayd.service:
   file.managed:
     - mode: 755
     - contents: |
-      [Unit]
-      Description=HTTP replayd script
-      After=network.target
+        [Unit]
+        Description=HTTP replayd script
+        After=network.target
 
-      [Service]
-      Type=simple
-      ExecStart=/usr/local/bin/replayd -config-file=/etc/replayd/config.json
-      Restart=always
-      User=replayd
-      Group=replayd
+        [Service]
+        Type=simple
+        ExecStart=/usr/local/bin/replayd -config-file=/etc/replayd/config.json
+        Restart=always
+        User=replayd
+        Group=replayd
 
-      [Install]
-      WantedBy=multi-user.target
+        [Install]
+        WantedBy=multi-user.target
 
 replayd-service:
   service.running:

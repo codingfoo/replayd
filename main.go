@@ -1,11 +1,11 @@
 package main
 
 import (
-  "io/ioutil"
-  "encoding/json"
-  "flag"
-  "log"
 	"bytes"
+	"encoding/json"
+	"flag"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"sync"
 )
@@ -32,34 +32,33 @@ func makeHandler() func(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-  configFilePtr := flag.String("config-file", "config.json", "Path to the config file for the replayd daemon")
-  flag.Parse()
-  log.Printf("Config file path: %s", *configFilePtr)
+	configFilePtr := flag.String("config-file", "config.json", "Path to the config file for the replayd daemon")
+	flag.Parse()
+	log.Printf("Config file path: %s", *configFilePtr)
 
-  dat, err := ioutil.ReadFile(*configFilePtr)
-  if err != nil {
-    log.Printf("Error opening config file.")
-    panic(err)
-  }
+	dat, err := ioutil.ReadFile(*configFilePtr)
+	if err != nil {
+		log.Printf("Error opening config file.")
+		panic(err)
+	}
 
-  var config map[string]interface{}
+	var config map[string]interface{}
 
-  if err = json.Unmarshal(dat, &config); err != nil {
-    panic(err)
-  }
+	if err = json.Unmarshal(dat, &config); err != nil {
+		panic(err)
+	}
 
-  host := config["host"].(string)
-  port := config["port"].(string)
+	host := config["host"].(string)
+	port := config["port"].(string)
 
-  log.Printf("Host: %s", host)
-  log.Printf("Port: %s", port)
+	log.Printf("Host: %s", host)
+	log.Printf("Port: %s", port)
 
 	handler := makeHandler()
 	http.HandleFunc("/", handler)
-  err = http.ListenAndServe(host + ":" + port, nil)
-  if err != nil {
-    log.Printf("ListenAndServer error: %s", err);
-  }
+	err = http.ListenAndServe(host+":"+port, nil)
+	if err != nil {
+		log.Printf("ListenAndServer error: %s", err)
+	}
 
 }
-

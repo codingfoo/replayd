@@ -1,28 +1,32 @@
+# replayd
+
+Setup options:
+
+1) Install vagrant
+
+```
+vagrant up
+```
+
+2) Use you favorite method to load the salt config onto the target masterless minion and run it
 
 # Tasks
 . write replayd daemon
   X add commandline opt for config file
   X add config file parsing
   X fix race conditions
-  . add error checking all over the place
   . add quickcheck tests
-  . handle all char types
-  . handle large sizes
-  . log like apache
+  . test all char types in body
+  . test very large sizes of request bodies
   . change verbosity of logging with a signal
-  . handle large data and blocking by reading in then updating pointer
-    . handle if bigger first post finishes after smaller second post
 . write salt config
   X create seperate user and group
-  . is seperate user properly locked down
   X install binary and config into /usr/local
   X add systemd scripts for binary
-  . add go tool and build package from source
-    . with go how to do dev prod parity?
-  . add packaging
-  . systemd logging into var and log rotating
-  . should it have a pid file?
-  . add a monitor of some sort
+  X add go tool and build package from source
+  X systemd logging into var and log rotating
+  X add health endpoint
+  . add a monitor of some sort(monit since one machine?), normally I would use outside system
   . add security hardening framework
 X write shell scripts
-. write README
+X write README

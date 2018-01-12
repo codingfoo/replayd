@@ -1,27 +1,28 @@
+
+# Tasks
 . write replayd daemon
   X add commandline opt for config file
   X add config file parsing
-  . fix race conditions
+  X fix race conditions
   . add error checking all over the place
   . add quickcheck tests
   . handle all char types
   . handle large sizes
   . log like apache
   . change verbosity of logging with a signal
-
+  . handle large data and blocking by reading in then updating pointer
+    . handle if bigger first post finishes after smaller second post
 . write salt config
-  . create seperate user and group
-  . install binary and config into /usr/local
-  . add systemd scripts for binary
+  X create seperate user and group
+  . is seperate user properly locked down
+  X install binary and config into /usr/local
+  X add systemd scripts for binary
   . add go tool and build package from source
+    . with go how to do dev prod parity?
   . add packaging
   . systemd logging into var and log rotating
   . should it have a pid file?
   . add a monitor of some sort
   . add security hardening framework
-
-
 X write shell scripts
 . write README
-
-- dont copy and paste type in

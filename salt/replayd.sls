@@ -13,24 +13,33 @@ go-install:
     - pkgs:
       - golang
 
-replayd-repo:
-  git.latest:
-    - name: git@github.com:codingfoo/replayd.git
-    - branch: stable
-    - target: /tmp/replayd
+replayd-tarball:
+  file.managed:
+    - name: /tmp/replayd-v1.0.tar.gz
+    - source: https://github.com/codingfoo/replayd/archive/v1.0.tar.gz
+    - source_hash: md5=23daad5b80d6f9b8a2e9f0080887af7d
+
+extract-replayd:
+  cmd:
+    - cwd: /tmp
+    - names:
+      - tar xvf replayd-v1.0.tar.gz
+    - run
+    - require:
+      - file: replayd-tarball
 
 build-replayd:
   cmd:
-    - cwd: /tmp/replayd
+    - cwd: /tmp/replayd-1.0
     - names:
       - go build main.go
     - run
     - require:
-      - git: replayd-repo
+      - cmd: extract-replayd
 
 /usr/local/bin/replayd:
   file.managed:
-    - source: /tmp/replayd/replayd
+    - source: /tmp/replayd-1.0/main
     - mode: 755
 
 /etc/replayd/config.json:

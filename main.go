@@ -1,10 +1,10 @@
 package main
 
 import (
-  "io"
 	"bytes"
 	"encoding/json"
 	"flag"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -12,10 +12,10 @@ import (
 )
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
-		switch r.Method {
-		case "GET":
-			io.WriteString(w, "OK")
-    }
+	switch r.Method {
+	case "GET":
+		io.WriteString(w, "OK")
+	}
 }
 
 func makeHandler() func(w http.ResponseWriter, r *http.Request) {
@@ -23,6 +23,7 @@ func makeHandler() func(w http.ResponseWriter, r *http.Request) {
 	var mutex = &sync.Mutex{}
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf(r.Method)
 		mutex.Lock()
 		defer mutex.Unlock()
 

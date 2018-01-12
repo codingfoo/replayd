@@ -1,7 +1,27 @@
 . write replayd daemon
-  . add commandline opt for config file
-  . add config file parsing
-. write salt config
+  X add commandline opt for config file
+  X add config file parsing
+  . fix race conditions
+  . add error checking all over the place
+  . add quickcheck tests
+  . handle all char types
+  . handle large sizes
+  . log like apache
+  . change verbosity of logging with a signal
 
-. write shell scripts
+. write salt config
+  . create seperate user and group
+  . install binary and config into /usr/local
+  . add systemd scripts for binary
+  . add go tool and build package from source
+  . add packaging
+  . systemd logging into var and log rotating
+  . should it have a pid file?
+  . add a monitor of some sort
+  . add security hardening framework
+
+
+X write shell scripts
 . write README
+
+- dont copy and paste type in

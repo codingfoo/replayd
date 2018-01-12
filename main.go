@@ -1,6 +1,7 @@
 package main
 
 import (
+  "io"
 	"bytes"
 	"encoding/json"
 	"flag"
@@ -9,6 +10,13 @@ import (
 	"net/http"
 	"sync"
 )
+
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case "GET":
+			io.WriteString(w, "OK")
+    }
+}
 
 func makeHandler() func(w http.ResponseWriter, r *http.Request) {
 	var b bytes.Buffer
@@ -55,6 +63,7 @@ func main() {
 	log.Printf("Port: %s", port)
 
 	handler := makeHandler()
+	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/", handler)
 	err = http.ListenAndServe(host+":"+port, nil)
 	if err != nil {
